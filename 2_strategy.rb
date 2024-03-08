@@ -1,26 +1,34 @@
-class Report
-  attr_reader :title, :text
-  attr_accessor :formater
-
-  def initialize(formater)
-    @title = 'this is the title'
-    @text = 'this is the text'
-    @formater = formater
+# Define a set of algorithms (strategies)
+class ConcreteStrategyA
+  def execute
+    puts "Executing strategy A"
   end
 end
 
-class Formater
-  def formater(_title, _text)
-    raise 'the formater abstract method has been called'
+class ConcreteStrategyB
+  def execute
+    puts "Executing strategy B"
   end
 end
 
-class PlainText < Formater
-  def formater(title, text)
-    p title
-    p text
+# Context class that uses a strategy
+class Context
+  attr_accessor :strategy
+
+  def initialize(strategy)
+    @strategy = strategy
+  end
+
+  def execute_strategy
+    @strategy.execute
   end
 end
 
-r1 = Report.new(PlainText.new)
-p r1.formater
+# Client code
+strategy_a = ConcreteStrategyA.new
+context_a = Context.new(strategy_a)
+context_a.execute_strategy
+
+strategy_b = ConcreteStrategyB.new
+context_b = Context.new(strategy_b)
+context_b.execute_strategy
